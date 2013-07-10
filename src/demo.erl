@@ -5,7 +5,7 @@
 % Everything on a line after % is ignored.
 
 double(Value) ->
-	times(Value, 2).
+    times(Value, 2).
 	
 times(X, Y) ->
-	X*Y.
+    X*Y.
