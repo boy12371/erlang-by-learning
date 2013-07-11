@@ -9,6 +9,7 @@
 %% ====================================================================
 -export([bump/1, average/1, even/1, member/2]).
 
+
 %% ====================================================================
 %% bump functions
 %% taking a list of integers and adding 1 to every element in the list
