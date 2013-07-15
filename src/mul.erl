@@ -41,7 +41,7 @@ mul(X, Y) ->
 
 
 %% ====================================================================
-%% mul_y functions
+%% mul_y/2 functions
 %% tail recursion multiplication table y
 %% ====================================================================
 mul_y({N, M}, List) when is_integer(N), (N =< M) and (N > 0) ->
@@ -51,7 +51,7 @@ mul_y({_N, _M}, _List) ->
 
 
 %% ====================================================================
-%% mul_x functions
+%% mul_x/2 functions
 %% recursion multiplication table x
 %% ====================================================================
 mul_x({N, M}) when is_integer(N), (N =< M) and (N > 0) ->

@@ -11,7 +11,7 @@
 
 
 %% ====================================================================
-%% bump functions
+%% bump/1 functions
 %% taking a list of integers and adding 1 to every element in the list
 %% ====================================================================
 bump(List) ->
@@ -24,7 +24,7 @@ bump([H | T], List) ->
 
 
 %% ====================================================================
-%% average functions
+%% average/1 functions
 %% compute the average of a list of numbers
 %% ====================================================================
 average(List) ->
@@ -38,7 +38,7 @@ average([H | T], Sum, Len) ->
 
 
 %% ====================================================================
-%% even functions
+%% even/1 functions
 %% traverse a list, filtering out the elements that are not even
 %% ====================================================================
 even(List) ->
@@ -53,7 +53,7 @@ even([_ | T], List) ->
 
 
 %% ====================================================================
-%% member functions
+%% member/2 functions
 %% if the list contains at least one element, and we check whether the
 %% first element is the one we are looking for
 %% ====================================================================
@@ -69,7 +69,7 @@ member(H, [_ | T], Bool) ->
 
 
 %% ====================================================================
-%% reverse functions
+%% reverse/1 functions
 %% an accumulator-based reverse function
 %% ====================================================================
 reverse(List) ->
