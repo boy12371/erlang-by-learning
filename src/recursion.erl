@@ -1,5 +1,6 @@
 %% @author Richard
-%% learning recursion
+%% @email kuangyel2000@gmail.com
+%% @doc @todo learning recursion
 
 
 -module(recursion).
@@ -10,6 +11,7 @@
 -export([bump/1, average/1, even/1, member/2]).
 
 
+
 %% ====================================================================
 %% bump/1 functions
 %% taking a list of integers and adding 1 to every element in the list
@@ -17,6 +19,7 @@
 bump([]) -> [];
 bump([Head | Tail]) ->
     [Head + 1 | bump(Tail)].
+
 
 
 %% ====================================================================
@@ -36,6 +39,7 @@ len([_ | Tail]) ->
     1 + len(Tail).
 
 
+
 %% ====================================================================
 %% even/1 functions
 %% traverse a list, filtering out the elements that are not even
@@ -45,6 +49,7 @@ even([Head | Tail]) when is_integer(Head), Head rem 2 == 0 ->
     [Head | even(Tail)];
 even([_ | Tail]) ->
     even(Tail).
+
 
 
 %% ====================================================================

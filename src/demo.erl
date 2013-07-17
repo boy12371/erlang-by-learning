@@ -1,5 +1,5 @@
 %% @author Richard
-%% kuangyel2000@gmail.com
+%% @email kuangyel2000@gmail.com
 %% <Erlang Programming>Exercise 2-3: Simple Pattern Matching
 
 
@@ -11,16 +11,17 @@
 -export([double/1, b_not/1, b_and/2, b_or/2, b_nand/2, area/1, even/1, number/1]).
 
 
+
 %% ====================================================================
 %% double/1 functions
 %% This is a comment. Everything on a line after % is ignored.
 %% ====================================================================
-
 double(Value) ->
     times(Value, 2).
 	
 times(X, Y) ->
     X*Y.
+
 
 
 %% ====================================================================
@@ -31,7 +32,6 @@ times(X, Y) ->
 %% should not use the logical constructs and, or, and not, but instead
 %% use pattern matching to achieve your goal.
 %% ====================================================================
-
 b_not(X) ->
     case X of
         true ->
@@ -85,6 +85,7 @@ b_nand(X, Y) ->
     end.
 
 
+
 %% ====================================================================
 %% area/1 functions
 %% This is a comment. Everything on a line after % is ignored.
@@ -100,6 +101,7 @@ area(_Other) ->
     {error, invalid_object}.
 
 
+
 %% ====================================================================
 %% even/1 functions
 %% Try calling the function even with a float or an atom.
@@ -110,6 +112,7 @@ even(X) when is_integer(X), X rem 2 == 1 ->
     false;
 even(_X) ->
     {error, 'invalid integer'}.
+
 
 
 %% ====================================================================
@@ -123,3 +126,4 @@ number(X) when is_float(X) ->
     float;
 number(_X) ->
     {false, 'not valid integer or fload'}.
+

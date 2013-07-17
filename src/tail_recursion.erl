@@ -1,5 +1,6 @@
 %% @author Richard
-%% learning tail recursion
+%% @email kuangyel2000@gmail.com
+%% @doc @todo learning tail recursion
 
 
 -module(tail_recursion).
@@ -8,6 +9,7 @@
 %% API functions
 %% ====================================================================
 -export([bump/1, average/1, even/1, member/2]).
+
 
 
 %% ====================================================================
@@ -23,6 +25,7 @@ bump([H | T], List) ->
     bump(T, [H + 1 | List]).
 
 
+
 %% ====================================================================
 %% average/1 functions
 %% compute the average of a list of numbers
@@ -35,6 +38,7 @@ average([], Sum, Len) ->
     Sum / Len;
 average([H | T], Sum, Len) ->
     average(T, Sum + H, Len + 1).
+
 
 
 %% ====================================================================
@@ -52,6 +56,7 @@ even([_ | T], List) ->
     even(T, List).
 
 
+
 %% ====================================================================
 %% member/2 functions
 %% if the list contains at least one element, and we check whether the
@@ -66,6 +71,7 @@ member(H, [H | _], Bool) ->
     not(Bool);
 member(H, [_ | T], Bool) ->
     member(H, T, Bool).
+
 
 
 %% ====================================================================

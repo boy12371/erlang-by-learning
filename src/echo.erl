@@ -1,8 +1,9 @@
-%% @author Administrator
-%% @doc @todo Add description to concurrent.
+%% @author Richard
+%% @email kuangyel2000@gmail.com
+%% @doc @todo <Erlang Programming>Exercise 4-1: An Echo Server
 
 
--module(concurrent).
+-module(echo).
 
 %% ====================================================================
 %% API functions
@@ -15,14 +16,18 @@
 %% go/0 functions
 %% ====================================================================
 go() ->
-    Pid = spawn(concurrent, loop, []),
-    Pid ! {self(), hello},
+    register(echo, spawn(echo, loop, [])),
+    echo ! {self(), hello},
     receive
-        {Pid, Msg} ->
-            io:format("~w~n", [Msg]),
-            Pid ! stop
+        {_Pid, Msg} ->
+            io:format("~w~n", [Msg])
     end.
 
+
+
+%% ====================================================================
+%% loop/0 functions
+%% ====================================================================
 loop() ->
     receive
         {From, Msg} ->
@@ -31,3 +36,4 @@ loop() ->
         stop ->
             true
     end.
+
