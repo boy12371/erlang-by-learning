@@ -1,37 +1,33 @@
-%%%----------------------------------------------------------------------
-
-%%-----------------------------------------------------------------------
-%% Func: mul/0, mul/1
-%% Return: 1*1=1        |
-%%         1*2=2 2*2=4  |
-%%         [ok, ok]     |
-%%-----------------------------------------------------------------------
+% learning guard
 
 -module(tut).
--export([mul/0, mul/1]).
+-export([start/1, start_proc/2, client/0]).
 
-mul() ->
-mul({1, 9}, []).
+%% -define(URL, "http://127.0.0.1:8086/app/admin/admin").
+%% -define(APPLICATION, "application/x-www-form-urlencoded").
+%% -define(CALLING, "{\"methodName\":\"Login\",\"requestID\":2,\"token\":\"0897616560\",\"userName\":\"001\",\"password\":\"001\"}").
+start(Num) ->
+    start_proc(Num, self()).
 
-mul(Y) ->
-mul({1, Y}, []).
+start_proc(0, Pid) ->
+    {closed, Pid};
+start_proc(Num, Pid) ->
+    spawn(fun() -> client() end),
+    start_proc(Num - 1, Pid).
 
-mul({M1, M2}, List) ->
-    case M1 > M2 orelse M1 < 1 of
-        true ->
-            List;
-        _ ->
-        mul({M1 + 1, M2}, [mul2(M1) | List])
-    end.
 
-mul2(X) when X > 0, is_integer(X) ->
-mul2({1, X}, []).
 
-mul2({N1, N2}, New_list) ->
-    case N1 > N2 orelse N1 < 1 of
-        true ->
-            io:format("~n");
-        _ ->
-            io:format("~w*~w=~w ", [N1, N2, N1*N2]),
-            mul2({N1 + 1, N2}, [[N1, N2, N1*N2] | New_list])
-    end.
+client() ->
+%%     inets:start(),
+%%     case httpc:request(post, {?URL, [], ?APPLICATION, lists:concat(["calling=" , ?CALLING])}, [], []) of
+%%         {ok, Result} ->
+%%             io:format("ok, retrun ~p~n",[Result]);
+%%         {error, Reason} ->
+%%             io:format("error cause ~p~n",[Reason])
+%%     end.  
+    {ok,Sock} = gen_tcp:connect("127.0.0.1", 8086, [{active, false}, {packet, 0}]),
+    gen_tcp:send(Sock, "http://127.0.0.1:8086/app/admin/admin?calling={\"methodName\":\"Login\",\"requestID\":2,\"token\":\"0897616560\",\"userName\":\"001\",\"password\":\"001\"}"),
+    A = gen_tcp:recv(Sock,0),
+    gen_tcp:close(Sock),
+    A.
+

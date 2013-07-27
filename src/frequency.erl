@@ -1,6 +1,6 @@
 %% @author Richard
 %% @email kuangyel2000@gmail.com
-%% @doc @todo <Erlang Programming>Example 5-1: About c/s model
+%% @doc @todo <Erlang Programming>Chapter 5: About c/s model
 %% the server functions 
 
 
@@ -27,6 +27,7 @@ start() ->
 %% init/0 functions
 %% ====================================================================
 init() ->
+    process_flag(trap_exit, true),
     Frequency = {get_frequencies(), []},
     loop(Frequency).
 
@@ -58,6 +59,9 @@ loop(Frequencies) ->
             Detail = {{free, Free}, {allocated, Allocated}},
             reply(Pid, Detail),
             loop(Frequencies);
+        {'EXIT', Pid, _Reason} ->
+            NewFrequencies = exited(Frequencies, Pid),
+            loop(NewFrequencies);
         {request, Pid, stop} ->
             reply(Pid, ok)
     end.
@@ -80,6 +84,7 @@ reply(Pid, Reply) ->
 allocate({[], Allocated}, _Pid) ->
     {{[], Allocated}, {error, no_frequency}};
 allocate({[Freq | Free], Allocated}, Pid) ->
+    link(Pid),
     {{Free, [{Freq, Pid} | Allocated]}, {ok, Freq}}.
 
 
@@ -88,11 +93,26 @@ allocate({[Freq | Free], Allocated}, Pid) ->
 %% deallocate/2 functions
 %% ====================================================================
 deallocate({Free, Allocated}, Freq) ->
-    case lists:keymember(Freq, 1, Allocated) of
-        false ->
-            {{Free, Allocated}, {error, invalid_frequency}};
-        _ ->
+    case lists:keysearch(Freq, 1, Allocated) of
+        {value, {Freq, Pid}} ->
+            unlink(Pid),
             NewAllocated = lists:keydelete(Freq, 1, Allocated),
-            {{[Freq | Free], NewAllocated}, {ok, Freq}}
+            {{[Freq | Free], NewAllocated}, {ok, Freq}};
+        _ ->
+            {{Free, Allocated}, {error, invalid_frequency}}
+    end.
+
+
+
+%% ====================================================================
+%% exited/2 functions
+%% ====================================================================
+exited({Free, Allocated}, Pid) ->
+    case lists:keysearch(Pid, 2, Allocated) of
+        {value, {Freq, Pid}} ->
+            NewAllocated = lists:keydelete(Freq, 1, Allocated),
+            {[Freq | Free], NewAllocated};
+        false ->
+            {Free, Allocated}
     end.
 
