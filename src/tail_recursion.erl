@@ -4,6 +4,9 @@
 
 
 -module(tail_recursion).
+-author("kuangyel2000@gmail.com").
+
+
 
 %% ====================================================================
 %% API functions

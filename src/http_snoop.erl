@@ -5,11 +5,16 @@
 
 
 -module(http_snoop).
+-author("kuangyel2000@gmail.com").
+
+
 
 %% ====================================================================
 %% API functions
 %% ====================================================================
 -export([start/0, stop/0, listen/0]).
+
+
 
 -define(PORT, 8086).
 -define(TCP_OPTIONS, [{packet, 0}, {active, false}, {reuseaddr, true}]).

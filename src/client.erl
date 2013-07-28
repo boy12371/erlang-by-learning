@@ -5,6 +5,9 @@
 
 
 -module(client).
+-author("kuangyel2000@gmail.com").
+
+
 
 %% ====================================================================
 %% API functions

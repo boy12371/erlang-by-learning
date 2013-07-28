@@ -4,6 +4,9 @@
 
 
 -module(myring).
+-author("kuangyel2000@gmail.com").
+
+
 
 %% ====================================================================
 %% API functions
