@@ -1,0 +1,17 @@
+{application, tiny_app,
+
+   [{description, "tiny app"},
+
+    {vsn, "1.0"},
+
+    {modules, [tiny]},
+
+    {registered, []},
+
+    {applications, [kernel, stdlib, sasl]},
+
+    {mod, {tiny, []}}
+
+   ]
+
+}.
